@@ -10,7 +10,6 @@ import com.ticketing.ticket_reserve.repositories.BookingTimeSlotRepository;
 import com.ticketing.ticket_reserve.repositories.ConcertRepository;
 import com.ticketing.ticket_reserve.requests.bookingtimeslot.CreateBookingTimeSlotRequest;
 import com.ticketing.ticket_reserve.requests.bookingtimeslot.UpdateBookingTimeSlotRequest;
-import com.ticketing.ticket_reserve.requests.concert.CreateConcertRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,6 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.awt.print.Book;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
