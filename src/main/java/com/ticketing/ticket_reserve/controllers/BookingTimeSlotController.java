@@ -75,7 +75,7 @@ public class BookingTimeSlotController {
     public ResponseEntity<BookingTimeSlot> createTimeSlot(@RequestBody CreateBookingTimeSlotRequest bookingTimeSlotRequest) {
         BookingTimeSlot createdTimeSlot = timeSlotService.createTimeSlot(bookingTimeSlotRequest);
         if (createdTimeSlot == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(createdTimeSlot, HttpStatus.CREATED);
     }
