@@ -67,7 +67,7 @@ public class BookingController {
     public ResponseEntity<Booking> createBooking(@RequestBody CreateBookingRequest bookingRequest) {
         Booking createdBooking = bookingService.createBooking(bookingRequest);
         if (createdBooking == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(createdBooking, HttpStatus.CREATED);
     }
