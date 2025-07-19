@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.ticketing.ticket_reserve.repositories.ConcertRepository;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,11 @@ public class ConcertService {
     @Autowired
     public ConcertService(ConcertRepository concertRepository) {
         this.concertRepository = concertRepository;
+    }
+
+    public Concert getConcert(Integer concertId) {
+        Optional<Concert> concert = concertRepository.findById(concertId);
+        return concert.orElse(null);
     }
 
     public List<Concert> getConcerts() { return concertRepository.findAll();}
@@ -50,6 +56,7 @@ public class ConcertService {
             concertRepository.save(concert);
             return concert;
         }
+        // If it doesn't exist, return null
         return null;
     }
 

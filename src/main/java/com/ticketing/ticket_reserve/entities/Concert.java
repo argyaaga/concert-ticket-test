@@ -1,5 +1,6 @@
 package com.ticketing.ticket_reserve.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ public class Concert {
     private LocalDateTime concertTime;
 
     @OneToMany(mappedBy = "concert", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<BookingTimeSlot> bookingTimeSlotList = new ArrayList<>();
 
     public Concert(){}

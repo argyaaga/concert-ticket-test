@@ -19,9 +19,37 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bookingId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bookingtimeslot.timeSlotId")
+    @JoinColumn(name = "bookingTimeSlot.timeSlotId")
     private BookingTimeSlot bookingTimeSlot;
 
     private LocalDateTime bookingTime;
-    private Integer userID;
+    private Integer userId;
+
+    public Booking(){}
+
+    public Booking(BookingTimeSlot bookingTimeSlot, LocalDateTime bookingTime, Integer userId) {
+        this.bookingTimeSlot = bookingTimeSlot;
+        this.bookingTime = bookingTime;
+        this.userId = userId;
+    }
+
+    public Integer getBookingId() {
+        return bookingId;
+    }
+
+    public BookingTimeSlot getBookingTimeSlot() {
+        return bookingTimeSlot;
+    }
+
+    public LocalDateTime getBookingTime() {
+        return bookingTime;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setBookingId(Integer bookingId) {
+        this.bookingId = bookingId;
+    }
 }

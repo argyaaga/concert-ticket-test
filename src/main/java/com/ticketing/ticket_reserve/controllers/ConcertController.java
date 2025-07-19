@@ -5,7 +5,9 @@ import com.ticketing.ticket_reserve.requests.concert.CreateConcertRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,21 @@ public class ConcertController {
         this.concertService = concertService;
     }
 
+    @GetMapping("/{concertId}")
+    public ResponseEntity<Concert> getConcert(@PathVariable Integer concertId) {
+        Concert result = concertService.getConcert(concertId);
+        if (result == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(result, HttpStatus.FOUND);
+    }
+
+    @DeleteMapping("/{concertId}")
+    public ResponseEntity<String> deleteConcert(@PathVariable Integer concertId) {
+        concertService.deleteConcert(concertId);
+        return new ResponseEntity<>("Concert with ID "+concertId+" has been deleted", HttpStatus.OK);
+    }
+
     @GetMapping
     public List<Concert> getConcerts() {
         return concertService.getConcerts();
@@ -36,10 +53,13 @@ public class ConcertController {
         return concertService.getUpcomingConcerts();
     }
 
-    @GetMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<Concert> updateConcert(@RequestBody Concert concert) {
-        concertService.updateConcert(concert);
-        return new ResponseEntity<>(concert, HttpStatus.CREATED);
+        Concert result = concertService.updateConcert(concert);
+        if (result == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PostMapping("/create")
