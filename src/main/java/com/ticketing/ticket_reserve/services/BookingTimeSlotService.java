@@ -19,36 +19,36 @@ import java.util.stream.Collectors;
 @Component
 public class BookingTimeSlotService {
 
-    private final BookingTimeSlotRepository bookingTimeSlotRepository;
+    private final BookingTimeSlotRepository timeSlotRepository;
     private final ConcertRepository concertRepository;
     private final BookingRepository bookingRepository;
 
     @Autowired
-    public BookingTimeSlotService(BookingTimeSlotRepository bookingTimeSlotRepository, ConcertRepository concertRepository, BookingRepository bookingRepository) {
-        this.bookingTimeSlotRepository = bookingTimeSlotRepository;
+    public BookingTimeSlotService(BookingTimeSlotRepository timeSlotRepository, ConcertRepository concertRepository, BookingRepository bookingRepository) {
+        this.timeSlotRepository = timeSlotRepository;
         this.concertRepository = concertRepository;
         this.bookingRepository = bookingRepository;
     }
 
-    public List<BookingTimeSlot> getTimeSlots() { return bookingTimeSlotRepository.findAll();}
+    public List<BookingTimeSlot> getTimeSlots() { return timeSlotRepository.findAll();}
 
     public BookingTimeSlot getTimeSlot(Integer timeSlotId) {
-        Optional<BookingTimeSlot> timeSlot = bookingTimeSlotRepository.findById(timeSlotId);
+        Optional<BookingTimeSlot> timeSlot = timeSlotRepository.findById(timeSlotId);
         return timeSlot.orElse(null);
     }
 
     public List<BookingTimeSlot> getConcertTimeSlots(Integer concertId) {
-        return bookingTimeSlotRepository.findByConcertConcertId(concertId);
+        return timeSlotRepository.findByConcertConcertId(concertId);
     }
 
     public List<BookingTimeSlot> getUpcomingSlots() {
-        return bookingTimeSlotRepository.findAll().stream()
+        return timeSlotRepository.findAll().stream()
                 .filter(timeSlot -> timeSlot.getCloseTime().isAfter(LocalDateTime.now()))
                 .collect(Collectors.toList());
     }
 
     public List<BookingTimeSlot> getAvailableSlots() {
-        return bookingTimeSlotRepository.findAll().stream()
+        return timeSlotRepository.findAll().stream()
                 .filter(bookingTimeSlot ->
                         //Check that the booking can be made right now
                         bookingTimeSlot.getOpenTime().isBefore(LocalDateTime.now())
@@ -80,7 +80,7 @@ public class BookingTimeSlotService {
                     timeSlotRequest.getCloseTime(),
                     timeSlotRequest.getMaxBookingCount()
             );
-            bookingTimeSlotRepository.save(newTimeSlot);
+            timeSlotRepository.save(newTimeSlot);
             return newTimeSlot;
         }
         // If the concert doesn't exist, return null
@@ -89,7 +89,7 @@ public class BookingTimeSlotService {
 
     public BookingTimeSlot updateTimeSlot(UpdateBookingTimeSlotRequest timeSlotRequest) {
 
-        Optional<BookingTimeSlot> timeSlot = bookingTimeSlotRepository.findById(timeSlotRequest.getTimeSlotId());
+        Optional<BookingTimeSlot> timeSlot = timeSlotRepository.findById(timeSlotRequest.getTimeSlotId());
         Optional<Concert> concert = concertRepository.findById(timeSlotRequest.getConcertId());
         //Check if the concert and time slot exist
         if (concert.isPresent() && timeSlot.isPresent()) {
@@ -100,7 +100,7 @@ public class BookingTimeSlotService {
                     timeSlotRequest.getMaxBookingCount()
             );
             newTimeSlot.setTimeSlotId(timeSlotRequest.getTimeSlotId());
-            bookingTimeSlotRepository.save(newTimeSlot);
+            timeSlotRepository.save(newTimeSlot);
             return newTimeSlot;
         }
         // If the concert or timeslot don't exist, return null
@@ -109,7 +109,7 @@ public class BookingTimeSlotService {
 
     @Transactional
     public void deleteTimeSlot(Integer timeSlotId) {
-        concertRepository.deleteById(timeSlotId);
+        timeSlotRepository.deleteById(timeSlotId);
     }
 
 }

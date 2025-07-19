@@ -36,7 +36,7 @@ public class BookingController {
         if (result == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(result, HttpStatus.FOUND);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping("/{bookingId}")
@@ -51,7 +51,7 @@ public class BookingController {
     }
 
     @GetMapping("/timeslot/{timeSlotId}")
-    public List<Booking> getBookings(@PathVariable Integer timeSlotId) {
+    public List<Booking> getTimeSlotBookings(@PathVariable Integer timeSlotId) {
         return bookingService.getTimeSlotBookings(timeSlotId);
     }
 

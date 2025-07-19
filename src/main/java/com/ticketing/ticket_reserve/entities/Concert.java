@@ -51,6 +51,10 @@ public class Concert {
         return concertTime;
     }
 
+    public LocalDateTime getConcertDateTime() {
+        return concertTime;
+    }
+
     public void setConcertId(Integer concertId) {
         this.concertId = concertId;
     }

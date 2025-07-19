@@ -1,16 +1,17 @@
 package com.ticketing.ticket_reserve.requests.concert;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class CreateConcertRequest {
     private String concertName;
     private String concertDescription;
-    private LocalDateTime concertTime;
+    private String concertTime;
 
     public CreateConcertRequest(String concertName, String concertDescription, String concertTime) {
         this.concertName = concertName;
         this.concertDescription = concertDescription;
-        this.concertTime = LocalDateTime.parse(concertTime);
+        this.concertTime = concertTime;
     }
 
     public String getConcertName() {
@@ -29,11 +30,19 @@ public class CreateConcertRequest {
         this.concertDescription = concertDescription;
     }
 
-    public LocalDateTime getConcertTime() {
+    public String getConcertTime() {
         return concertTime;
     }
 
+    public LocalDateTime getConcertDateTime() {
+        try {
+            return LocalDateTime.parse(concertTime);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+    }
+
     public void setConcertTime(String concertTime) {
-        this.concertTime = LocalDateTime.parse(concertTime);
+        this.concertTime = concertTime;
     }
 }

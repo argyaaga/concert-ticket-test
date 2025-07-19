@@ -34,7 +34,7 @@ public class ConcertController {
         if (result == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(result, HttpStatus.FOUND);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping("/{concertId}")
@@ -65,6 +65,9 @@ public class ConcertController {
     @PostMapping("/create")
     public ResponseEntity<Concert> createConcert(@RequestBody CreateConcertRequest concertRequest) {
         Concert createdConcert = concertService.createConcert(concertRequest);
+        if (createdConcert == null) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(createdConcert, HttpStatus.CREATED);
     }
 }

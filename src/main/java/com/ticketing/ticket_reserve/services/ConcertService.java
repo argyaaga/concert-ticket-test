@@ -38,10 +38,14 @@ public class ConcertService {
     }
 
     public Concert createConcert(CreateConcertRequest concertRequest) {
+        //If time is invalid, it will return null
+        if (concertRequest.getConcertDateTime() == null) {
+            return null;
+        }
         Concert newConcert = new Concert(
                 concertRequest.getConcertName(),
                 concertRequest.getConcertDescription(),
-                concertRequest.getConcertTime()
+                concertRequest.getConcertDateTime()
         );
         concertRepository.save(newConcert);
         return newConcert;
@@ -64,13 +68,5 @@ public class ConcertService {
     public void deleteConcert(Integer concertId) {
         concertRepository.deleteById(concertId);
     }
-
-    //TODO: add searching for concerts based on available time slots once that is implemented
-
-//    public Concert updateConcert(Concert concert) {
-//
-//    }
-
-//    public List<Concert> getConcertsWithinRange(LocalDateTime startTime)
 
 }

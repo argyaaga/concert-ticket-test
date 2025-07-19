@@ -20,7 +20,6 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "api/timeslot")
 public class BookingTimeSlotController {
-
     private final BookingTimeSlotService timeSlotService;
 
     @Autowired
@@ -34,7 +33,7 @@ public class BookingTimeSlotController {
         if (result == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(result, HttpStatus.FOUND);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping("/{timeSlotId}")
