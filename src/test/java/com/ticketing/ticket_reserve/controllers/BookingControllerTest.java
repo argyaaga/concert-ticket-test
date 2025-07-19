@@ -120,7 +120,7 @@ public class BookingControllerTest extends BaseIntegrationTest {
         ResponseEntity<Booking> responseEntity =
                 restTemplate.exchange(requestEntity, new ParameterizedTypeReference<>(){});
 
-        Assertions.assertEquals(responseEntity.getStatusCode(), HttpStatus.NOT_FOUND);
+        Assertions.assertEquals(responseEntity.getStatusCode(), HttpStatus.BAD_REQUEST);
 
     }
 
@@ -169,7 +169,7 @@ public class BookingControllerTest extends BaseIntegrationTest {
         ResponseEntity<List<Booking>> responseEntity =
                 restTemplate.exchange(requestEntity, new ParameterizedTypeReference<>(){});
 
-        Assertions.assertEquals(responseEntity.getStatusCode(), HttpStatus.NOT_FOUND);
+        Assertions.assertEquals(responseEntity.getStatusCode(), HttpStatus.BAD_REQUEST);
 
     }
 
@@ -192,7 +192,7 @@ public class BookingControllerTest extends BaseIntegrationTest {
         ResponseEntity<List<Booking>> responseEntity =
                 restTemplate.exchange(requestEntity, new ParameterizedTypeReference<>(){});
 
-        Assertions.assertEquals(responseEntity.getStatusCode(), HttpStatus.NOT_FOUND);
+        Assertions.assertEquals(responseEntity.getStatusCode(), HttpStatus.BAD_REQUEST);
 
     }
 

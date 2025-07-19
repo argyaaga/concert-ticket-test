@@ -76,7 +76,7 @@ public class BookingController {
     public ResponseEntity<List<Booking>> createBulkBooking(@RequestBody CreateBulkBookingRequest bookingRequest) {
         List<Booking> createdBookings = bookingService.createBulkBooking(bookingRequest);
         if (createdBookings == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(createdBookings, HttpStatus.CREATED);
     }

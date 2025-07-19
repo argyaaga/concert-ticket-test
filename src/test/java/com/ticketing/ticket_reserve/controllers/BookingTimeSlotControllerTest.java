@@ -133,7 +133,7 @@ public class BookingTimeSlotControllerTest extends BaseIntegrationTest {
         ResponseEntity<BookingTimeSlot> responseEntity =
                 restTemplate.exchange(requestEntity, new ParameterizedTypeReference<>(){});
 
-        Assertions.assertEquals(responseEntity.getStatusCode(), HttpStatus.NOT_FOUND);
+        Assertions.assertEquals(responseEntity.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 
     @Test
@@ -156,7 +156,7 @@ public class BookingTimeSlotControllerTest extends BaseIntegrationTest {
         ResponseEntity<BookingTimeSlot> responseEntity =
                 restTemplate.exchange(requestEntity, new ParameterizedTypeReference<>(){});
 
-        Assertions.assertEquals(responseEntity.getStatusCode(), HttpStatus.NOT_FOUND);
+        Assertions.assertEquals(responseEntity.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 
     @Test
