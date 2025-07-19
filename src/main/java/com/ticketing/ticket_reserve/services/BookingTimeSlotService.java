@@ -65,6 +65,15 @@ public class BookingTimeSlotService {
         Optional<Concert> concert = concertRepository.findById(timeSlotRequest.getConcertId());
         //Check if the concert exists
         if (concert.isPresent()) {
+            //Check to make sure that the open time of the time slot isn't after the close time
+            //and also make sure that the open time is before the concert begins.
+            if (
+                    timeSlotRequest.getOpenTime().isAfter(timeSlotRequest.getCloseTime())
+                            ||
+                    timeSlotRequest.getOpenTime().isAfter(concert.get().getConcertTime())
+            ) {
+                return null;
+            }
             BookingTimeSlot newTimeSlot = new BookingTimeSlot(
                     concert.get(),
                     timeSlotRequest.getOpenTime(),
